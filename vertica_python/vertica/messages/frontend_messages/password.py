@@ -26,8 +26,8 @@ class Password(FrontendMessage):
         elif self.auth_method == Authentication.CRYPT_PASSWORD:
             return crypt.crypt(self.password, self.options['salt'])
         elif self.auth_method == Authentication.MD5_PASSWORD:
-            self.password = hashlib.md5().update(self.password + self.options['user']).hexdigest()
-            self.password = hashlib.md5().update(self.password + self.options['salt']).hexdigest()
+            self.password = hashlib.md5(self.password + self.options['user']).hexdigest()
+            self.password = hashlib.md5(self.password + self.options['salt']).hexdigest()
             return 'md5' + self.password
         else:
             raise ValueError("unsupported authentication method: {0}".format(self.auth_method))
